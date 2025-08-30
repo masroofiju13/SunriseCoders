@@ -1,0 +1,168 @@
+import { useState, useEffect } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
+import type { InsertCalculator } from "@shared/schema";
+
+export default function CalculatorSection() {
+  const [laborCost, setLaborCost] = useState(2000);
+  const [operationalCost, setOperationalCost] = useState(50);
+  const [workingDays, setWorkingDays] = useState(22);
+  const [results, setResults] = useState({
+    currentCost: 2000,
+    aiCost: 330,
+    monthlySavings: 1670,
+    percentageSavings: 84,
+    annualSavings: 20040
+  });
+
+  const { toast } = useToast();
+
+  const calculatorMutation = useMutation({
+    mutationFn: async (data: InsertCalculator) => {
+      const response = await apiRequest("POST", "/api/calculator", data);
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Calculation Saved",
+        description: "Your savings calculation has been saved successfully.",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to save calculation. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  useEffect(() => {
+    const currentCost = laborCost + (operationalCost * workingDays);
+    const aiCost = 330; // Fixed AI cost
+    const monthlySavings = currentCost - aiCost;
+    const percentageSavings = Math.round((monthlySavings / currentCost) * 100);
+    const annualSavings = monthlySavings * 12;
+
+    const newResults = {
+      currentCost,
+      aiCost,
+      monthlySavings,
+      percentageSavings,
+      annualSavings
+    };
+
+    setResults(newResults);
+
+    // Auto-save calculation
+    calculatorMutation.mutate({
+      laborCost,
+      operationalCost,
+      workingDays,
+      monthlySavings,
+      annualSavings
+    });
+  }, [laborCost, operationalCost, workingDays]);
+
+  return (
+    <section className="py-20 px-6">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Estimate Your Savings with <span className="text-green-400">AI Automation</span>
+          </h2>
+        </div>
+
+        <div className="calculator-display rounded-2xl p-8 glassmorphism">
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
+            <div className="space-y-6">
+              <h3 className="text-xl font-semibold text-white mb-4">Calculate Your Costs</h3>
+              
+              <div>
+                <label className="block text-sm text-gray-300 mb-2">Monthly Human Labor Cost ($)</label>
+                <input 
+                  type="number" 
+                  value={laborCost}
+                  onChange={(e) => setLaborCost(Number(e.target.value))}
+                  className="w-full bg-input text-foreground border border-border rounded-lg px-4 py-3"
+                  data-testid="input-labor-cost"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm text-gray-300 mb-2">Operational Cost Per Day</label>
+                <input 
+                  type="number" 
+                  value={operationalCost}
+                  onChange={(e) => setOperationalCost(Number(e.target.value))}
+                  className="w-full bg-input text-foreground border border-border rounded-lg px-4 py-3"
+                  data-testid="input-operational-cost"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm text-gray-300 mb-2">Working Days per Month</label>
+                <input 
+                  type="number" 
+                  value={workingDays}
+                  onChange={(e) => setWorkingDays(Number(e.target.value))}
+                  className="w-full bg-input text-foreground border border-border rounded-lg px-4 py-3"
+                  data-testid="input-working-days"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <h3 className="text-xl font-semibold text-white mb-4">Your Potential Savings</h3>
+              
+              <div className="space-y-4">
+                <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-4">
+                  <div className="text-2xl font-bold text-red-400" data-testid="text-current-cost">
+                    ${results.currentCost.toLocaleString()}
+                  </div>
+                  <div className="text-sm text-gray-300">Current monthly cost that includes:</div>
+                  <ul className="text-xs text-gray-400 mt-2 space-y-1">
+                    <li>• Salaries and benefits for human workers</li>
+                    <li>• Operating expenses and utilities</li>
+                    <li>• Training costs and manual labor expenses</li>
+                    <li>• Overhead costs for traditional operations</li>
+                  </ul>
+                </div>
+
+                <div className="bg-green-500/20 border border-green-500/30 rounded-lg p-4">
+                  <div className="text-2xl font-bold text-green-400" data-testid="text-ai-cost">
+                    ${results.aiCost}
+                  </div>
+                  <div className="text-sm text-gray-300">With AI automation cost that includes:</div>
+                  <ul className="text-xs text-gray-400 mt-2 space-y-1">
+                    <li>• Advanced AI tools and systems</li>
+                    <li>• Automated processes and workflows</li>
+                    <li>• 24/7 operation without downtime</li>
+                    <li>• Reduced need for manual intervention</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Results */}
+          <div className="bg-gradient-to-r from-purple-600 to-green-600 rounded-xl p-6 text-center">
+            <div className="text-4xl font-bold text-white mb-2" data-testid="text-monthly-savings">
+              ${results.monthlySavings.toLocaleString()}
+            </div>
+            <div className="text-lg text-white mb-1">
+              Monthly Savings | <span className="font-bold" data-testid="text-percentage-savings">{results.percentageSavings}%</span> Cost Reduction
+            </div>
+            <div className="text-sm text-white/80">
+              Annual Savings: <span className="font-bold" data-testid="text-annual-savings">${results.annualSavings.toLocaleString()}</span>
+            </div>
+            <p className="text-xs text-white/70 mt-4">
+              Revolutionize the way you approach your business operations with intelligent systems that analyze and optimize performance for maximum productivity and return that saves money, time, resources and energy.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
