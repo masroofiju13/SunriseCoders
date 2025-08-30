@@ -9,7 +9,7 @@ export default function Footer() {
           <div className="col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <Bot className="text-2xl text-purple-400" />
-              <span className="text-xl font-bold text-white">SmartPro AI Solutions</span>
+              <span className="text-xl font-bold text-white">Sunrise AI</span>
             </div>
             <p className="text-gray-300 mb-4">Transforming businesses through intelligent automation and AI-powered solutions. Experience the future of efficient operations today.</p>
             <div className="flex space-x-4">
@@ -59,7 +59,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-border mt-8 pt-8 text-center">
-          <p className="text-gray-400">&copy; 2024 SmartPro AI Solutions. All rights reserved. | Empowering businesses through intelligent automation.</p>
+          <p className="text-gray-400">&copy; 2024 Sunrise AI. All rights reserved. | Empowering businesses through intelligent automation.</p>
         </div>
       </div>
     </footer>

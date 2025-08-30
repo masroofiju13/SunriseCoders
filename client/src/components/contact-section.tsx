@@ -154,7 +154,7 @@ export default function ContactSection() {
           {/* Contact Information */}
           <div className="space-y-8">
             <div className="glassmorphism rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-white mb-6">Why Choose SmartPro AI?</h3>
+              <h3 className="text-2xl font-bold text-white mb-6">Why Choose Sunrise AI?</h3>
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
                   <Rocket className="text-purple-400 mt-1" />

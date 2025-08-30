@@ -54,7 +54,7 @@ export default function ShowcaseSection() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            <span className="text-yellow-400">SmartPro AI</span> in Action
+            <span className="text-yellow-400">Sunrise AI</span> in Action
           </h2>
           <p className="text-gray-300 text-lg">Explore our cutting-edge AI solutions and see how we transform businesses into intelligent enterprises.</p>
         </div>

@@ -17,7 +17,7 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <Bot className="text-2xl text-purple-400" />
-          <span className="text-xl font-bold text-white">SmartPro AI Solutions</span>
+          <span className="text-xl font-bold text-white">Sunrise AI</span>
         </div>
         
         {/* Desktop Navigation */}

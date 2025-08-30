@@ -1,6 +1,6 @@
 # Overview
 
-This is a full-stack AI automation business website built with React, Express, and PostgreSQL. The application serves as a marketing and lead generation platform for "SmartPro AI Solutions," offering various AI-powered services including voice agents, lead generation automation, workflow automation, and custom AI solutions. The site features interactive components like cost calculators, booking systems, contact forms, and showcases of AI implementations.
+This is a full-stack AI automation business website built with React, Express, and PostgreSQL. The application serves as a marketing and lead generation platform for "Sunrise AI," offering various AI-powered services including voice agents, lead generation automation, workflow automation, and custom AI solutions. The site features interactive components like cost calculators, booking systems, contact forms, and showcases of AI implementations.
 
 # User Preferences
 
