@@ -56,6 +56,7 @@ export default function ShowcaseSection() {
   const [selectedItem, setSelectedItem] = useState<typeof showcaseItems[0] | null>(null);
 
   const handleViewDemo = (demoUrl: string, e: React.MouseEvent) => {
+    e.preventDefault();
     e.stopPropagation(); // Prevent modal from opening
     window.open(demoUrl, '_blank');
   };
@@ -74,18 +75,24 @@ export default function ShowcaseSection() {
           {showcaseItems.map((item) => (
             <div 
               key={item.id}
-              className="glassmorphism rounded-xl overflow-hidden hover:scale-105 transition-transform cursor-pointer"
-              onClick={() => setSelectedItem(item)}
+              className="glassmorphism rounded-xl overflow-hidden hover:scale-105 transition-transform"
               data-testid={`card-showcase-${item.id}`}
             >
-              <img 
-                src={item.image} 
-                alt={item.title}
-                className="w-full h-48 object-cover" 
-              />
-              <div className="p-6">
-                <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
-                <p className="text-gray-300 text-sm mb-4">{item.description}</p>
+              <div 
+                className="cursor-pointer"
+                onClick={() => setSelectedItem(item)}
+              >
+                <img 
+                  src={item.image} 
+                  alt={item.title}
+                  className="w-full h-48 object-cover" 
+                />
+                <div className="p-6 pb-2">
+                  <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
+                  <p className="text-gray-300 text-sm mb-4">{item.description}</p>
+                </div>
+              </div>
+              <div className="px-6 pb-6">
                 <div className="flex space-x-2">
                   <button 
                     className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm flex-1"
@@ -96,6 +103,7 @@ export default function ShowcaseSection() {
                   </button>
                   <button 
                     className="border border-purple-600 text-purple-400 px-4 py-2 rounded-lg text-sm"
+                    onClick={() => setSelectedItem(item)}
                     data-testid={`button-learn-more-${item.id}`}
                   >
                     Learn
