@@ -1,14 +1,16 @@
 import { useState } from "react";
+import { Play } from "lucide-react";
 import ShowcaseModal from "@/components/ui/showcase-modal";
 
 const showcaseItems = [
   {
     id: "medical",
     title: "AI Medical Assistant",
-    description: "Advanced healthcare automation and patient interaction system.",
+    description: "Intelligent medical consultation system with symptom analysis and treatment recommendations",
     image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
     details: "Comprehensive AI-powered medical assistant that streamlines patient interactions, automates appointment scheduling, and provides 24/7 healthcare support.",
-    demoUrl: "https://www.youtube.com/watch?si=u9OSiABGgrR2QPAV&v=oKNkyYYmRyc&feature=youtu.be"
+    demoUrl: "https://www.youtube.com/watch?si=u9OSiABGgrR2QPAV&v=oKNkyYYmRyc&feature=youtu.be",
+    tags: ["AI/ML", "Healthcare", "NLP"]
   },
   {
     id: "inventory",
@@ -54,6 +56,7 @@ const showcaseItems = [
 
 export default function ShowcaseSection() {
   const [selectedItem, setSelectedItem] = useState<typeof showcaseItems[0] | null>(null);
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   const handleViewDemo = (demoUrl: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -75,38 +78,65 @@ export default function ShowcaseSection() {
           {showcaseItems.map((item) => (
             <div 
               key={item.id}
-              className="glassmorphism rounded-xl overflow-hidden hover:scale-105 transition-transform"
+              className="glassmorphism rounded-xl overflow-hidden hover:scale-105 transition-all duration-300 relative group"
+              onMouseEnter={() => setHoveredItem(item.id)}
+              onMouseLeave={() => setHoveredItem(null)}
               data-testid={`card-showcase-${item.id}`}
             >
-              <div 
-                className="cursor-pointer"
-                onClick={() => setSelectedItem(item)}
-              >
+              <div className="relative">
                 <img 
                   src={item.image} 
                   alt={item.title}
                   className="w-full h-48 object-cover" 
                 />
-                <div className="p-6 pb-2">
-                  <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
-                  <p className="text-gray-300 text-sm mb-4">{item.description}</p>
-                </div>
+                
+                {/* Hover Overlay */}
+                {hoveredItem === item.id && (
+                  <div className="absolute inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center">
+                    <button 
+                      onClick={(e) => handleViewDemo(item.demoUrl, e)}
+                      className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
+                    >
+                      <Play className="w-8 h-8 text-white ml-1" fill="white" />
+                    </button>
+                  </div>
+                )}
               </div>
-              <div className="px-6 pb-6">
+
+              {/* Content */}
+              <div className="p-6">
+                <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
+                <p className="text-gray-300 text-sm mb-4">{item.description}</p>
+                
+                {/* Tags - only show for medical item */}
+                {item.id === "medical" && item.tags && (
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {item.tags.map((tag) => (
+                      <span 
+                        key={tag}
+                        className="px-3 py-1 bg-blue-600/20 text-blue-300 rounded-full text-xs border border-blue-500/30"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Buttons */}
                 <div className="flex space-x-2">
                   <button 
-                    className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm flex-1"
+                    className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm flex-1 hover:bg-purple-700 transition-colors"
                     onClick={(e) => handleViewDemo(item.demoUrl, e)}
                     data-testid={`button-view-demo-${item.id}`}
                   >
-                    View Demo
+                    Watch Demo
                   </button>
                   <button 
-                    className="border border-purple-600 text-purple-400 px-4 py-2 rounded-lg text-sm"
+                    className="border border-purple-600 text-purple-400 px-4 py-2 rounded-lg text-sm hover:bg-purple-600 hover:text-white transition-colors"
                     onClick={() => setSelectedItem(item)}
                     data-testid={`button-learn-more-${item.id}`}
                   >
-                    Learn
+                    Details
                   </button>
                 </div>
               </div>
