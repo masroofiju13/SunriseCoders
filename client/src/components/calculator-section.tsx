@@ -117,7 +117,7 @@ export default function CalculatorSection() {
 
   useEffect(() => {
     const config = processConfigs[selectedProcess];
-    const currentCost = laborCost + (tasksPerDay * workingDays * 0.5); // Basic calculation
+    const currentCost = laborCost + (tasksPerDay * workingDays * 0.5);
     const aiCost = config.aiCost;
     const monthlySavings = currentCost - aiCost;
     const percentageSavings = Math.round((monthlySavings / currentCost) * 100);
@@ -285,7 +285,7 @@ export default function CalculatorSection() {
             <div className="text-xs text-white/70 space-y-1">
               <p>Calculation assumptions: This calculator provides only a rough estimate for typical business processes. Actual savings may vary depending on your specific case.</p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-2 text-xs">
-                <p>• ${Math.round(laborCost/22)} tasks per day • {workingDays} working days per month • ${Math.round(laborCost/(tasksPerDay * workingDays))} / working days per month</p>
+                <p>• {Math.round(laborCost/22)} tasks per day • {workingDays} working days per month • ${Math.round(laborCost/(tasksPerDay * workingDays))} / working days per month</p>
                 <p>• {completionRate}% completion rate (%) • {Math.round(tasksPerDay/24)} tasks per day completion rate (%) / working days per month</p>
                 <p>• Total AI minutes: {Math.round(tasksPerDay * taskDuration)} / working days per month</p>
               </div>
