@@ -8,7 +8,7 @@ const showcaseItems = [
     description: "Advanced healthcare automation and patient interaction system.",
     image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
     details: "Comprehensive AI-powered medical assistant that streamlines patient interactions, automates appointment scheduling, and provides 24/7 healthcare support.",
-    demoUrl: "https://youtube.com/YOUR_CHANNEL_URL" // Replace with your YouTube demo URL
+    demoUrl: "https://www.youtube.com/watch?si=u9OSiABGgrR2QPAV&v=oKNkyYYmRyc&feature=youtu.be"
   },
   {
     id: "inventory",
@@ -16,7 +16,7 @@ const showcaseItems = [
     description: "Automated monitoring and management for connected devices.",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
     details: "Intelligent device management system that monitors, controls, and optimizes IoT devices across your business infrastructure.",
-    demoUrl: "https://youtube.com/YOUR_CHANNEL_URL" // Replace with your YouTube demo URL
+    demoUrl: "https://www.youtube.com/watch?si=u9OSiABGgrR2QPAV&v=oKNkyYYmRyc&feature=youtu.be"
   },
   {
     id: "lead",
@@ -24,7 +24,7 @@ const showcaseItems = [
     description: "Intelligent lead scoring and automated customer acquisition.",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
     details: "Advanced lead generation platform that identifies, scores, and nurtures prospects through intelligent automation and personalized outreach.",
-    demoUrl: "https://youtube.com/YOUR_CHANNEL_URL" // Replace with your YouTube demo URL
+    demoUrl: "https://www.youtube.com/watch?si=u9OSiABGgrR2QPAV&v=oKNkyYYmRyc&feature=youtu.be"
   },
   {
     id: "workflow",
@@ -32,7 +32,7 @@ const showcaseItems = [
     description: "Comprehensive automation for business processes and document management.",
     image: "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
     details: "Complete workflow automation solution that digitizes and optimizes business processes, from document handling to approval workflows.",
-    demoUrl: "https://youtube.com/YOUR_CHANNEL_URL" // Replace with your YouTube demo URL
+    demoUrl: "https://www.youtube.com/watch?si=u9OSiABGgrR2QPAV&v=oKNkyYYmRyc&feature=youtu.be"
   },
   {
     id: "social",
@@ -40,7 +40,7 @@ const showcaseItems = [
     description: "Leverage AI innovation for social media management and content creation.",
     image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
     details: "AI-powered social media management platform that creates content, schedules posts, and analyzes engagement across all platforms.",
-    demoUrl: "https://youtube.com/YOUR_CHANNEL_URL" // Replace with your YouTube demo URL
+    demoUrl: "https://www.youtube.com/watch?si=u9OSiABGgrR2QPAV&v=oKNkyYYmRyc&feature=youtu.be"
   },
   {
     id: "baby",
@@ -48,7 +48,7 @@ const showcaseItems = [
     description: "Intelligent solutions for family and parenting automation needs.",
     image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
     details: "Smart parenting assistant that helps families manage schedules, track development milestones, and provide personalized care recommendations.",
-    demoUrl: "https://youtube.com/YOUR_CHANNEL_URL" // Replace with your YouTube demo URL
+    demoUrl: "https://www.youtube.com/watch?si=u9OSiABGgrR2QPAV&v=oKNkyYYmRyc&feature=youtu.be"
   }
 ];
 
