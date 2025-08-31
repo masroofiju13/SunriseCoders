@@ -8,7 +8,7 @@ import BookingSection from "@/components/booking-section";
 import FAQSection from "@/components/faq-section";
 import ContactSection from "@/components/contact-section";
 import Footer from "@/components/footer";
-import { MessageCircle } from "lucide-react";
+import { Calendar } from "lucide-react";
 
 export default function Home() {
   return (
@@ -27,10 +27,11 @@ export default function Home() {
       {/* Floating Action Button */}
       <div className="fixed bottom-6 right-6 z-50">
         <button 
-          className="gradient-button w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
-          data-testid="button-chat"
+          className="gradient-button px-4 py-3 rounded-full flex items-center space-x-2 shadow-lg hover:scale-105 transition-transform text-white font-semibold"
+          data-testid="button-book-call-floating"
         >
-          <MessageCircle className="text-white text-xl" />
+          <Calendar className="w-4 h-4" />
+          <span>Book my Free Call</span>
         </button>
       </div>
     </div>

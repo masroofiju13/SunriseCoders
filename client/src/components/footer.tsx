@@ -1,5 +1,5 @@
-import { Bot } from "lucide-react";
-import { SiLinkedin, SiX, SiFacebook } from "react-icons/si";
+import { Bot, Calendar } from "lucide-react";
+import { SiLinkedin, SiInstagram, SiYoutube, SiFacebook } from "react-icons/si";
 
 export default function Footer() {
   return (
@@ -19,13 +19,6 @@ export default function Footer() {
                 data-testid="link-social-linkedin"
               >
                 <SiLinkedin className="text-xl" />
-              </a>
-              <a 
-                href="#" 
-                className="text-gray-400 hover:text-purple-400 transition-colors"
-                data-testid="link-social-twitter"
-              >
-                <SiX className="text-xl" />
               </a>
               <a 
                 href="#" 
@@ -58,8 +51,55 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-border mt-8 pt-8 text-center">
-          <p className="text-gray-400">&copy; 2024 Sunrise AI. All rights reserved. | Empowering businesses through intelligent automation.</p>
+        <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-gray-400 mb-4 md:mb-0">&copy; 2025 Sunrise AI Solutions. All Rights Reserved.</p>
+          
+          <div className="flex items-center space-x-6">
+            <div className="flex space-x-4">
+              <a 
+                href="#" 
+                className="text-gray-400 hover:text-purple-400 transition-colors"
+                data-testid="link-footer-linkedin"
+              >
+                <SiLinkedin className="text-lg" />
+              </a>
+              <a 
+                href="#" 
+                className="text-gray-400 hover:text-purple-400 transition-colors"
+                data-testid="link-footer-instagram"
+              >
+                <SiInstagram className="text-lg" />
+              </a>
+              <a 
+                href="#" 
+                className="text-gray-400 hover:text-purple-400 transition-colors"
+                data-testid="link-footer-youtube"
+              >
+                <SiYoutube className="text-lg" />
+              </a>
+              <a 
+                href="#" 
+                className="text-gray-400 hover:text-purple-400 transition-colors"
+                data-testid="link-footer-facebook"
+              >
+                <SiFacebook className="text-lg" />
+              </a>
+            </div>
+            
+            <div className="flex space-x-4 text-sm">
+              <a href="#" className="text-gray-400 hover:text-purple-400 transition-colors">Solutions</a>
+              <a href="#" className="text-gray-400 hover:text-purple-400 transition-colors">Our Services</a>
+              <a href="#" className="text-gray-400 hover:text-purple-400 transition-colors">On Top</a>
+            </div>
+
+            <button 
+              className="gradient-button px-4 py-2 rounded-full text-white font-semibold flex items-center space-x-2"
+              data-testid="button-book-call-footer"
+            >
+              <Calendar className="w-4 h-4" />
+              <span>Book my Free Call</span>
+            </button>
+          </div>
         </div>
       </div>
     </footer>
