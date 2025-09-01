@@ -78,11 +78,13 @@ export default function BookingSection() {
             {/* Meeting Details */}
             <div className="lg:col-span-4 p-6 bg-gray-800">
               <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mr-4">
-                  <span className="text-white font-bold text-lg">VR</span>
-                </div>
+                <img 
+                  src="/attached_assets/image_1756701905144.png" 
+                  alt="Masroof Amin"
+                  className="w-12 h-12 rounded-full object-cover mr-4"
+                />
                 <div>
-                  <div className="text-gray-400 text-sm">Vladmir Rumyantsev</div>
+                  <div className="text-gray-400 text-sm">Masroof Amin</div>
                 </div>
               </div>
               
