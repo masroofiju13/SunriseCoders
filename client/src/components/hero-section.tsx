@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown, Calendar } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 export default function HeroSection() {
   const [language, setLanguage] = useState("EN");
@@ -27,13 +27,6 @@ export default function HeroSection() {
           <span className="text-purple-400 font-semibold"> life-changing efficiency.</span>
         </p>
 
-        <button 
-          className="gradient-button px-12 py-4 rounded-full text-white font-bold text-lg hover:scale-105 transition-transform"
-          onClick={scrollToBooking}
-          data-testid="button-book-free-call-hero"
-        >
-          Book my Free Call
-        </button>
       </div>
 
       {/* Language Selector */}
@@ -48,17 +41,6 @@ export default function HeroSection() {
         </button>
       </div>
 
-      {/* Floating CTA */}
-      <div className="absolute bottom-8 right-8">
-        <button 
-          className="gradient-button px-6 py-3 rounded-full text-white font-semibold flex items-center space-x-2"
-          onClick={scrollToBooking}
-          data-testid="button-book-call-floating"
-        >
-          <Calendar className="w-4 h-4" />
-          <span>Book my Free Call</span>
-        </button>
-      </div>
     </section>
   );
 }
