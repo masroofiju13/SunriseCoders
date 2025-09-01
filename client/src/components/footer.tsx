@@ -16,41 +16,41 @@ export default function Footer() {
           </p>
           
           {/* Social Media Icons */}
-          <div className="flex space-x-4 mb-4 md:mb-0">
+          <div className="flex space-x-3 mb-4 md:mb-0">
             <a 
               href="#" 
-              className="text-gray-400 hover:text-blue-400 transition-colors"
+              className="w-8 h-8 bg-gray-700 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-all duration-300 group"
               data-testid="link-footer-linkedin"
             >
-              <SiLinkedin className="text-xl" />
+              <SiLinkedin className="text-lg text-gray-300 group-hover:text-white" />
             </a>
             <a 
               href="#" 
-              className="text-gray-400 hover:text-pink-400 transition-colors"
+              className="w-8 h-8 bg-gray-700 hover:bg-pink-600 rounded-lg flex items-center justify-center transition-all duration-300 group"
               data-testid="link-footer-instagram"
             >
-              <SiInstagram className="text-xl" />
+              <SiInstagram className="text-lg text-gray-300 group-hover:text-white" />
             </a>
             <a 
               href="#" 
-              className="text-gray-400 hover:text-red-400 transition-colors"
+              className="w-8 h-8 bg-gray-700 hover:bg-red-600 rounded-lg flex items-center justify-center transition-all duration-300 group"
               data-testid="link-footer-youtube"
             >
-              <SiYoutube className="text-xl" />
+              <SiYoutube className="text-lg text-gray-300 group-hover:text-white" />
             </a>
             <a 
               href="#" 
-              className="text-gray-400 hover:text-blue-400 transition-colors"
+              className="w-8 h-8 bg-gray-700 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-all duration-300 group"
               data-testid="link-footer-facebook"
             >
-              <SiFacebook className="text-xl" />
+              <SiFacebook className="text-lg text-gray-300 group-hover:text-white" />
             </a>
             <a 
               href="mailto:contact@smartproai.com" 
-              className="text-gray-400 hover:text-green-400 transition-colors"
+              className="w-8 h-8 bg-gray-700 hover:bg-green-600 rounded-lg flex items-center justify-center transition-all duration-300 group"
               data-testid="link-footer-email"
             >
-              <Mail className="text-xl" />
+              <Mail className="text-lg text-gray-300 group-hover:text-white" />
             </a>
           </div>
           
