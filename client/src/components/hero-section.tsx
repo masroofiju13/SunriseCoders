@@ -14,6 +14,14 @@ export default function HeroSection() {
           <span className="text-green-400 font-semibold">Lower costs, save time,</span> and experience 
           <span className="text-purple-400 font-semibold"> life-changing efficiency.</span>
         </p>
+        
+        <button 
+          className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 px-8 py-4 rounded-full text-white font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
+          onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
+          data-testid="button-book-call-hero"
+        >
+          Book my Free Call
+        </button>
       </div>
     </section>
   );
