@@ -7,7 +7,7 @@ const showcaseItems = [
     id: "medical",
     title: "AI Medical Assistant",
     description: "Intelligent medical consultation system with symptom analysis and treatment recommendations",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+    image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
     details: "Comprehensive AI-powered medical assistant that streamlines patient interactions, automates appointment scheduling, and provides 24/7 healthcare support.",
     demoUrl: "https://www.youtube.com/watch?si=u9OSiABGgrR2QPAV&v=oKNkyYYmRyc&feature=youtu.be",
     tags: ["AI/ML", "Healthcare", "NLP"]
