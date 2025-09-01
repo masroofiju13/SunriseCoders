@@ -132,15 +132,6 @@ export default function CalculatorSection() {
     };
 
     setResults(newResults);
-
-    // Auto-save calculation
-    calculatorMutation.mutate({
-      laborCost,
-      operationalCost: tasksPerDay,
-      workingDays,
-      monthlySavings,
-      annualSavings
-    });
   }, [selectedProcess, laborCost, tasksPerDay, completionRate, taskDuration, workingDays]);
 
   const currentConfig = processConfigs[selectedProcess];
