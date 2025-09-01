@@ -12,45 +12,45 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center">
           {/* Copyright */}
           <p className="text-gray-400 mb-4 md:mb-0">
-            2025 SmartProAI Solutions. All Rights Reserved.
+            2025 Sunrise AI Solutions. All Rights Reserved.
           </p>
           
           {/* Social Media Icons */}
           <div className="flex space-x-3 mb-4 md:mb-0">
             <a 
               href="#" 
-              className="w-8 h-8 bg-gray-700 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-all duration-300 group"
+              className="w-8 h-8 bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-all duration-300"
               data-testid="link-footer-linkedin"
             >
-              <SiLinkedin className="text-lg text-gray-300 group-hover:text-white" />
+              <SiLinkedin className="text-lg text-white" />
             </a>
             <a 
               href="#" 
-              className="w-8 h-8 bg-gray-700 hover:bg-pink-600 rounded-lg flex items-center justify-center transition-all duration-300 group"
+              className="w-8 h-8 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 hover:from-yellow-500 hover:via-red-600 hover:to-purple-600 rounded-lg flex items-center justify-center transition-all duration-300"
               data-testid="link-footer-instagram"
             >
-              <SiInstagram className="text-lg text-gray-300 group-hover:text-white" />
+              <SiInstagram className="text-lg text-white" />
             </a>
             <a 
               href="#" 
-              className="w-8 h-8 bg-gray-700 hover:bg-red-600 rounded-lg flex items-center justify-center transition-all duration-300 group"
+              className="w-8 h-8 bg-red-600 hover:bg-red-700 rounded-lg flex items-center justify-center transition-all duration-300"
               data-testid="link-footer-youtube"
             >
-              <SiYoutube className="text-lg text-gray-300 group-hover:text-white" />
+              <SiYoutube className="text-lg text-white" />
             </a>
             <a 
               href="#" 
-              className="w-8 h-8 bg-gray-700 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-all duration-300 group"
+              className="w-8 h-8 bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-all duration-300"
               data-testid="link-footer-facebook"
             >
-              <SiFacebook className="text-lg text-gray-300 group-hover:text-white" />
+              <SiFacebook className="text-lg text-white" />
             </a>
             <a 
-              href="mailto:contact@smartproai.com" 
-              className="w-8 h-8 bg-gray-700 hover:bg-green-600 rounded-lg flex items-center justify-center transition-all duration-300 group"
+              href="mailto:contact@sunriseai.com" 
+              className="w-8 h-8 bg-gray-600 hover:bg-gray-700 rounded-lg flex items-center justify-center transition-all duration-300"
               data-testid="link-footer-email"
             >
-              <Mail className="text-lg text-gray-300 group-hover:text-white" />
+              <Mail className="text-lg text-white" />
             </a>
           </div>
           
