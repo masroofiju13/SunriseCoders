@@ -1,16 +1,4 @@
-import { useState } from "react";
-import { ChevronDown } from "lucide-react";
-
 export default function HeroSection() {
-  const [language, setLanguage] = useState("EN");
-
-  const scrollToBooking = () => {
-    const element = document.getElementById('booking');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <section 
       id="top"
@@ -26,21 +14,7 @@ export default function HeroSection() {
           <span className="text-green-400 font-semibold">Lower costs, save time,</span> and experience 
           <span className="text-purple-400 font-semibold"> life-changing efficiency.</span>
         </p>
-
       </div>
-
-      {/* Language Selector */}
-      <div className="absolute bottom-8 left-8">
-        <button 
-          className="bg-purple-600 text-white px-4 py-2 rounded-full flex items-center space-x-2"
-          onClick={() => setLanguage(language === "EN" ? "ES" : "EN")}
-          data-testid="button-language-selector"
-        >
-          <span>{language}</span>
-          <ChevronDown className="text-xs" />
-        </button>
-      </div>
-
     </section>
   );
 }
