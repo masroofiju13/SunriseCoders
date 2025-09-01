@@ -4,10 +4,8 @@ import HeroSection from "@/components/hero-section";
 import ServicesSection from "@/components/services-section";
 import CalculatorSection from "@/components/calculator-section";
 import ShowcaseSection from "@/components/showcase-section";
-import TransformSection from "@/components/transform-section";
 import BookingSection from "@/components/booking-section";
 import FAQSection from "@/components/faq-section";
-import ContactSection from "@/components/contact-section";
 import Footer from "@/components/footer";
 import { Calendar, ChevronDown } from "lucide-react";
 
@@ -21,7 +19,6 @@ export default function Home() {
       <ServicesSection />
       <CalculatorSection />
       <ShowcaseSection />
-      <TransformSection />
       <BookingSection />
       <FAQSection />
       <Footer />
