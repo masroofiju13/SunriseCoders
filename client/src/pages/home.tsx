@@ -24,7 +24,6 @@ export default function Home() {
       <TransformSection />
       <BookingSection />
       <FAQSection />
-      <ContactSection />
       <Footer />
       
       {/* Floating Language Selector */}
