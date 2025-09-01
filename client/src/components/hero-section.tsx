@@ -2,7 +2,7 @@ export default function HeroSection() {
   return (
     <section 
       id="top"
-      className="hero-bg h-[85vh] flex items-center justify-center relative geometric-pattern"
+      className="hero-bg h-[75vh] flex items-center justify-center relative geometric-pattern"
     >
       <div className="text-center z-10 px-6 max-w-4xl mx-auto">
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
