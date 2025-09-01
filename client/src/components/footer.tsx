@@ -1,4 +1,4 @@
-import { Bot, Calendar } from "lucide-react";
+import { Bot } from "lucide-react";
 import { SiLinkedin, SiInstagram, SiYoutube, SiFacebook } from "react-icons/si";
 
 export default function Footer() {
@@ -91,14 +91,6 @@ export default function Footer() {
               <a href="#" className="text-gray-400 hover:text-purple-400 transition-colors">Our Services</a>
               <a href="#" className="text-gray-400 hover:text-purple-400 transition-colors">On Top</a>
             </div>
-
-            <button 
-              className="gradient-button px-4 py-2 rounded-full text-white font-semibold flex items-center space-x-2"
-              data-testid="button-book-call-footer"
-            >
-              <Calendar className="w-4 h-4" />
-              <span>Book my Free Call</span>
-            </button>
           </div>
         </div>
       </div>

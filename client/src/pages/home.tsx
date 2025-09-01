@@ -27,10 +27,10 @@ export default function Home() {
       {/* Floating Action Button */}
       <div className="fixed bottom-6 right-6 z-50">
         <button 
-          className="gradient-button px-4 py-3 rounded-full flex items-center space-x-2 shadow-lg hover:scale-105 transition-transform text-white font-semibold"
+          className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 px-6 py-3 rounded-full flex items-center space-x-3 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 text-white font-semibold text-sm"
           data-testid="button-book-call-floating"
         >
-          <Calendar className="w-4 h-4" />
+          <Calendar className="w-5 h-5" />
           <span>Book my Free Call</span>
         </button>
       </div>

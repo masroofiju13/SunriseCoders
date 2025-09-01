@@ -96,8 +96,8 @@ export default function BookingSection() {
               </div>
 
               <div className="grid grid-cols-7 gap-1 text-center text-sm">
-                {["S", "M", "T", "W", "T", "F", "S"].map((day) => (
-                  <div key={day} className="text-gray-400 p-2">{day}</div>
+                {["S", "M", "T", "W", "T", "F", "S"].map((day, index) => (
+                  <div key={`day-${index}`} className="text-gray-400 p-2">{day}</div>
                 ))}
                 
                 {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
