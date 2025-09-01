@@ -137,7 +137,7 @@ export default function CalculatorSection() {
   const currentConfig = processConfigs[selectedProcess];
 
   return (
-    <section className="py-20 px-6">
+    <section className="pt-8 pb-20 px-6">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
