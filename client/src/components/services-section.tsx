@@ -1,4 +1,4 @@
-import { Mic, Target, Settings, Brain, Check } from "lucide-react";
+import { Mic, Sparkles, Droplet, Brain, Check } from "lucide-react";
 
 const services = [
   {
@@ -6,44 +6,41 @@ const services = [
     icon: Mic,
     iconColor: "bg-green-500",
     checkColor: "text-green-400",
-    title: "AI-Powered Voice Agents",
-    subtitle: "Get a 24/7 AI receptionist for your business.",
-    description: "Smart voice agents that handle client calls, schedule appointments, and answer questions automatically.",
+    title: "AI Voice Agents",
+    subtitle: "Convert more clients with AI Receptionists.",
+    description: "We create advanced AI voice agents tailored to your business usecase.",
     features: [
-      "Automated Call Handling",
-      "Smart Scheduling",
-      "FAQ Management",
-      "Transcription Recording"
+      "Answer calls 24/7",
+      "Qualify Leads",
+      "Book appointments"
     ]
   },
   {
-    id: "lead-generation",
-    icon: Target,
+    id: "content-generation",
+    icon: Sparkles,
     iconColor: "bg-yellow-500",
     checkColor: "text-yellow-400",
-    title: "Lead Generation Automation",
-    subtitle: "Get high-quality leads on autopilot.",
-    description: "AI-powered systems that identify and engage potential clients around the clock.",
+    title: "Content Generation",
+    subtitle: "Repurpose your existing content.",
+    description: "We generated over 700k views in 28 days using our in-house AI agent.",
     features: [
-      "AI Lead Scoring",
-      "Personalized Outreach",
-      "Smart Follow-Ups",
-      "Business automation solutions - lead generation"
+      "Get more content with no work",
+      "Get more 5x leads",
+      "Fully automated"
     ]
   },
   {
-    id: "workflow-automation",
-    icon: Settings,
+    id: "ai-apps-development",
+    icon: Droplet,
     iconColor: "bg-blue-500",
     checkColor: "text-blue-400",
-    title: "Workflow & Business Process Automation",
-    subtitle: "Automate repetitive tasks, documents, and internal workflows.",
-    description: "Custom solutions designed to eliminate manual work, reduce costs, and scale operations effortlessly.",
+    title: "AI Apps Development",
+    subtitle: "Get your idea built within 2-4 weeks.",
+    description: "We've built over 15 AI apps, from chatbots to marketing tools.",
     features: [
-      "Contract & document automation",
-      "Billing & approval workflows",
-      "Task and case management",
-      "AI-powered tools for internal processes and customer interaction"
+      "Sleek designs",
+      "Complete functionality",
+      "Deployed online"
     ]
   },
   {
@@ -70,7 +67,7 @@ export default function ServicesSection() {
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             <span className="text-yellow-400">Our Services</span>
           </h2>
-          <p className="text-gray-300 text-lg">Discover how our AI-powered solutions can transform your business.</p>
+          <p className="text-gray-300 text-lg">We leverage state-of-the-art AI to help your business grow.</p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
