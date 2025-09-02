@@ -18,7 +18,9 @@ export default function Footer() {
           {/* Social Media Icons */}
           <div className="flex space-x-3 mb-4 md:mb-0">
             <a 
-              href="#" 
+              href="https://www.linkedin.com/in/masroof-amin-39894789/" 
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-8 h-8 bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-all duration-300"
               data-testid="link-footer-linkedin"
             >
@@ -32,7 +34,9 @@ export default function Footer() {
               <SiInstagram className="text-lg text-white" />
             </a>
             <a 
-              href="#" 
+              href="https://www.youtube.com/@SunriseAISolutions" 
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-8 h-8 bg-red-600 hover:bg-red-700 rounded-lg flex items-center justify-center transition-all duration-300"
               data-testid="link-footer-youtube"
             >
