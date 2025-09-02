@@ -1,27 +1,97 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { ChevronLeft, ChevronRight, Clock, Video, Globe } from "lucide-react";
+import { ChevronLeft, ChevronRight, Clock, Video, Globe, CheckCircle } from "lucide-react";
 import type { InsertBooking } from "@shared/schema";
 
-const timeSlots = [
-  "9:30pm",
-  "10:00pm", 
-  "10:30pm",
-  "11:00pm",
-  "11:30pm"
-];
+// Helper functions for date and time logic
+const getWeekdays = () => {
+  const days = [];
+  const today = new Date();
+  
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(today);
+    date.setDate(today.getDate() + i);
+    
+    // Skip weekends (0 = Sunday, 6 = Saturday)
+    if (date.getDay() !== 0 && date.getDay() !== 6) {
+      days.push({
+        date,
+        dayName: date.toLocaleDateString('en-US', { weekday: 'short' }),
+        dayNumber: date.getDate(),
+        fullDate: date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
+      });
+    }
+  }
+  
+  return days.slice(0, 5); // Return max 5 weekdays
+};
+
+const getAvailableTimeSlots = (selectedDate: Date) => {
+  const baseSlots = [
+    "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
+    "14:00", "14:30", "15:00", "15:30", "16:00", "16:30",
+    "17:00", "17:30", "18:00", "18:30", "19:00", "19:30",
+    "20:00", "20:30", "21:00"
+  ];
+  
+  const now = new Date();
+  const isToday = selectedDate.toDateString() === now.toDateString();
+  
+  if (!isToday) {
+    return baseSlots;
+  }
+  
+  // For today, only show slots after current time + 1 hour buffer
+  const currentHour = now.getHours();
+  const currentMinute = now.getMinutes();
+  const bufferTime = currentHour + 1 + (currentMinute > 30 ? 1 : 0);
+  
+  return baseSlots.filter(slot => {
+    const [hours, minutes] = slot.split(':').map(Number);
+    const slotTime = hours + (minutes / 60);
+    return slotTime > bufferTime;
+  });
+};
+
+const getCurrentMonth = () => {
+  return new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+};
 
 export default function BookingSection() {
-  const [selectedDate, setSelectedDate] = useState("15");
+  const [weekdays, setWeekdays] = useState(getWeekdays());
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState("");
-  const [currentMonth, setCurrentMonth] = useState("September 2025");
+  const [availableSlots, setAvailableSlots] = useState<string[]>([]);
+  const [currentMonth, setCurrentMonth] = useState(getCurrentMonth());
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: ""
   });
+
+  useEffect(() => {
+    if (selectedDate) {
+      const slots = getAvailableTimeSlots(selectedDate);
+      setAvailableSlots(slots);
+      setSelectedTime(""); // Reset selected time when date changes
+    }
+  }, [selectedDate]);
+
+  useEffect(() => {
+    // Set default to today if it's a weekday
+    const today = new Date();
+    if (today.getDay() !== 0 && today.getDay() !== 6) {
+      setSelectedDate(today);
+    } else {
+      // If today is weekend, select first available weekday
+      const firstWeekday = weekdays[0];
+      if (firstWeekday) {
+        setSelectedDate(firstWeekday.date);
+      }
+    }
+  }, []);
 
   const { toast } = useToast();
 
@@ -59,46 +129,68 @@ export default function BookingSection() {
 
     bookingMutation.mutate({
       ...formData,
-      date: `${currentMonth} ${selectedDate}`,
+      date: selectedDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
       time: selectedTime
     });
+  };
+
+  const handleDateSelect = (date: Date) => {
+    setSelectedDate(date);
+  };
+
+  const getSelectedDateFormatted = () => {
+    if (!selectedDate) return '';
+    return selectedDate.toLocaleDateString('en-US', { weekday: 'short', day: '2-digit' });
   };
 
   return (
     <section id="booking" className="py-20 px-6">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="text-yellow-400">Book a Free Consultation</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Book Your <span className="text-yellow-400">Consultation</span>
           </h2>
+          <p className="text-gray-300 text-lg">Transform your ideas into reality. Schedule a free consultation with our team today.</p>
         </div>
 
-        <div className="bg-gray-900 rounded-2xl p-0 overflow-hidden">
-          <div className="grid lg:grid-cols-12 gap-0">
-            {/* Meeting Details */}
+        <div className="bg-gray-900 rounded-2xl p-0 overflow-hidden max-w-5xl mx-auto">
+          <div className="grid lg:grid-cols-12 gap-0 min-h-[500px]">
+            {/* Profile & Meeting Details */}
             <div className="lg:col-span-4 p-6 bg-gray-800">
               <div className="flex items-center mb-4">
                 <img 
                   src="/attached_assets/image_1756701905144.png" 
                   alt="Masroof Amin"
-                  className="w-12 h-12 rounded-full object-cover mr-4"
+                  className="w-12 h-12 rounded-full object-cover mr-3"
                 />
                 <div>
                   <div className="text-gray-400 text-sm">Masroof Amin</div>
                 </div>
               </div>
               
-              <h3 className="text-white text-xl font-semibold mb-2">30 Min AI Meeting</h3>
-              <p className="text-gray-400 mb-6">Let's discover how AI can help you</p>
+              <h3 className="text-white text-xl font-semibold mb-2">Onboarding</h3>
+              <div className="text-sm text-gray-300 italic mb-4">
+                This call is strictly reserved for those interested in
+                <span className="text-blue-400"> AI development services.</span>
+              </div>
+              
+              <div className="text-xs text-gray-400 mb-6">
+                If you don't find an available spot, please reach out to us at{' '}
+                <span className="text-blue-400 underline">masroof@sunriseai.com</span>
+              </div>
               
               <div className="space-y-3 text-sm">
+                <div className="flex items-center text-gray-300">
+                  <CheckCircle className="w-4 h-4 mr-3 text-green-400" />
+                  <span>Requires confirmation</span>
+                </div>
                 <div className="flex items-center text-gray-300">
                   <Clock className="w-4 h-4 mr-3" />
                   <span>30m</span>
                 </div>
                 <div className="flex items-center text-gray-300">
-                  <Video className="w-4 h-4 mr-3" />
-                  <span>Cal Video</span>
+                  <Video className="w-4 h-4 mr-3 text-green-400" />
+                  <span>Google Meet</span>
                 </div>
                 <div className="flex items-center text-gray-300">
                   <Globe className="w-4 h-4 mr-3" />
@@ -134,48 +226,80 @@ export default function BookingSection() {
               </div>
                 
               <div className="grid grid-cols-7 gap-1 text-center">
-                {Array.from({ length: 30 }, (_, i) => i + 1).map((day) => (
-                  <button
-                    key={day}
-                    onClick={() => setSelectedDate(day.toString())}
-                    className={`p-3 text-sm transition-colors ${
-                      selectedDate === day.toString()
-                        ? "bg-white text-black rounded"
-                        : "text-gray-300 hover:bg-gray-700 rounded"
-                    }`}
-                    data-testid={`button-select-date-${day}`}
-                  >
-                    {day}
-                  </button>
-                ))}
+                {/* Fill calendar with actual dates */}
+                {Array.from({ length: 35 }, (_, index) => {
+                  const startDate = new Date();
+                  startDate.setDate(1); // First day of current month
+                  const firstDayOfWeek = startDate.getDay();
+                  const dayNumber = index - firstDayOfWeek + 1;
+                  
+                  if (dayNumber <= 0 || dayNumber > 30) {
+                    return <div key={index} className="p-3"></div>;
+                  }
+                  
+                  const dateForButton = new Date();
+                  dateForButton.setDate(dayNumber);
+                  const isSelected = selectedDate && selectedDate.getDate() === dayNumber;
+                  const isWeekday = weekdays.some(wd => wd.dayNumber === dayNumber);
+                  
+                  return (
+                    <button
+                      key={index}
+                      onClick={() => isWeekday && handleDateSelect(dateForButton)}
+                      disabled={!isWeekday}
+                      className={`p-3 text-sm transition-colors ${
+                        isSelected
+                          ? "bg-white text-black rounded font-semibold"
+                          : isWeekday 
+                            ? "text-gray-300 hover:bg-gray-700 rounded cursor-pointer"
+                            : "text-gray-600 cursor-not-allowed"
+                      }`}
+                      data-testid={`button-select-date-${dayNumber}`}
+                    >
+                      {dayNumber}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
             {/* Time Slots */}
             <div className="lg:col-span-3 p-6 bg-gray-800 border-l border-gray-700">
               <div className="mb-4">
-                <div className="text-white font-semibold mb-1">Mon 01</div>
+                <div className="text-white font-semibold mb-1">{getSelectedDateFormatted()}</div>
                 <div className="flex space-x-2 text-xs">
                   <span className="text-gray-400">12h</span>
                   <span className="text-gray-400">24h</span>
                 </div>
               </div>
               
-              <div className="space-y-2">
-                {timeSlots.map((slot) => (
-                  <button
-                    key={slot}
-                    onClick={() => setSelectedTime(slot)}
-                    className={`w-full py-3 px-4 rounded-lg transition-colors text-center border ${
-                      selectedTime === slot
-                        ? "bg-white text-black border-white"
-                        : "bg-transparent text-white border-gray-600 hover:border-gray-400"
-                    }`}
-                    data-testid={`button-select-time-${slot.replace(/\s+/g, '-').toLowerCase()}`}
-                  >
-                    {slot}
-                  </button>
-                ))}
+              <div className="space-y-2 max-h-80 overflow-y-auto">
+                {selectedDate ? (
+                  availableSlots.length > 0 ? (
+                    availableSlots.map((slot) => (
+                      <button
+                        key={slot}
+                        onClick={() => setSelectedTime(slot)}
+                        className={`w-full py-3 px-4 rounded-lg transition-colors text-center border ${
+                          selectedTime === slot
+                            ? "bg-white text-black border-white font-semibold"
+                            : "bg-transparent text-white border-gray-600 hover:border-gray-400"
+                        }`}
+                        data-testid={`button-select-time-${slot.replace(':', '-')}`}
+                      >
+                        {slot}
+                      </button>
+                    ))
+                  ) : (
+                    <div className="text-gray-400 text-center py-8">
+                      No available slots for this day
+                    </div>
+                  )
+                ) : (
+                  <div className="text-gray-400 text-center py-8">
+                    Please select a date
+                  </div>
+                )}
               </div>
             </div>
           </div>
