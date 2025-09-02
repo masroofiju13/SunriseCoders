@@ -2,96 +2,72 @@ import { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { TrendingUp, Users, Clock, DollarSign, Check } from "lucide-react";
 import type { InsertCalculator } from "@shared/schema";
 
-type ProcessType = "workflow" | "document" | "customer" | "sales" | "custom";
-
-interface ProcessConfig {
-  id: ProcessType;
-  name: string;
-  aiCost: number;
-  features: string[];
-  efficiency: number;
+interface ServiceOption {
+  id: string;
+  icon: any;
+  title: string;
+  subtitle: string;
+  monthlyPrice: number;
+  annualSavings: number;
+  benefits: string[];
+  color: string;
 }
 
-const processConfigs: Record<ProcessType, ProcessConfig> = {
-  workflow: {
-    id: "workflow",
-    name: "Workflow Automation",
-    aiCost: 330,
-    features: [
-      "Advanced AI tools and systems",
-      "Automated processes and workflows", 
-      "24/7 operation without downtime",
-      "Reduced need for manual intervention"
+const serviceOptions: ServiceOption[] = [
+  {
+    id: "voice-agents",
+    icon: Users,
+    title: "AI Voice Agents",
+    subtitle: "Replace 1-2 receptionist salaries",
+    monthlyPrice: 497,
+    annualSavings: 48000,
+    benefits: [
+      "24/7 call handling",
+      "Never miss a lead",
+      "Instant appointment booking",
+      "Professional customer service"
     ],
-    efficiency: 0.84
+    color: "bg-green-500"
   },
-  document: {
-    id: "document", 
-    name: "Document/Data Processing",
-    aiCost: 264,
-    features: [
-      "Pay only for actual automated work",
-      "Unlimited scaling capability",
-      "100% process consistency",
-      "24/7 availability, no fatigue"
+  {
+    id: "content-automation",
+    icon: TrendingUp,
+    title: "Content Generation",
+    subtitle: "Replace content creation team",
+    monthlyPrice: 297,
+    annualSavings: 36000,
+    benefits: [
+      "Unlimited content creation",
+      "5x more leads generated",
+      "Social media automation",
+      "SEO-optimized content"
     ],
-    efficiency: 0.87
+    color: "bg-yellow-500"
   },
-  customer: {
-    id: "customer",
-    name: "Customer Support Automation", 
-    aiCost: 396,
-    features: [
-      "Pay only for actual automated work",
-      "Unlimited scaling capability", 
-      "100% process consistency",
-      "24/7 availability, no fatigue"
+  {
+    id: "workflow-automation",
+    icon: Clock,
+    title: "Workflow Automation",
+    subtitle: "Eliminate repetitive tasks",
+    monthlyPrice: 397,
+    annualSavings: 42000,
+    benefits: [
+      "Document processing",
+      "Data entry automation",
+      "Email management",
+      "Report generation"
     ],
-    efficiency: 0.80
-  },
-  sales: {
-    id: "sales",
-    name: "Sales/Lead Automation",
-    aiCost: 495,
-    features: [
-      "Pay only for actual automated work",
-      "Unlimited scaling capability",
-      "100% process consistency", 
-      "24/7 availability, no fatigue"
-    ],
-    efficiency: 0.75
-  },
-  custom: {
-    id: "custom",
-    name: "Custom Project",
-    aiCost: 450,
-    features: [
-      "Tailored AI solutions",
-      "Custom integration capabilities",
-      "Scalable architecture",
-      "Ongoing support and optimization"
-    ],
-    efficiency: 0.78
+    color: "bg-blue-500"
   }
-};
+];
 
 export default function CalculatorSection() {
-  const [selectedProcess, setSelectedProcess] = useState<ProcessType>("sales");
-  const [laborCost, setLaborCost] = useState(2000);
-  const [tasksPerDay, setTasksPerDay] = useState(250);
-  const [completionRate, setCompletionRate] = useState(30);
-  const [taskDuration, setTaskDuration] = useState(2);
-  const [workingDays, setWorkingDays] = useState(22);
-  
-  const [results, setResults] = useState({
-    currentCost: 2000,
-    aiCost: 495,
-    monthlySavings: 1505,
-    percentageSavings: 75,
-    annualSavings: 18060
-  });
+  const [selectedService, setSelectedService] = useState<string>("voice-agents");
+  const [companySize, setCompanySize] = useState<number>(50);
+  const [currentSpending, setCurrentSpending] = useState<number>(5000);
 
   const { toast } = useToast();
 
@@ -115,161 +91,136 @@ export default function CalculatorSection() {
     },
   });
 
-  useEffect(() => {
-    const config = processConfigs[selectedProcess];
-    const currentCost = laborCost + (tasksPerDay * workingDays * 0.5);
-    const aiCost = config.aiCost;
-    const monthlySavings = currentCost - aiCost;
-    const percentageSavings = Math.round((monthlySavings / currentCost) * 100);
-    const annualSavings = monthlySavings * 12;
-
-    const newResults = {
-      currentCost,
-      aiCost,
-      monthlySavings,
-      percentageSavings,
-      annualSavings
-    };
-
-    setResults(newResults);
-  }, [selectedProcess, laborCost, tasksPerDay, completionRate, taskDuration, workingDays]);
-
-  const currentConfig = processConfigs[selectedProcess];
+  const selectedOption = serviceOptions.find(option => option.id === selectedService) || serviceOptions[0];
+  const monthlySavings = Math.max(0, currentSpending - selectedOption.monthlyPrice);
+  const percentageSavings = currentSpending > 0 ? Math.round((monthlySavings / currentSpending) * 100) : 0;
+  const annualSavings = monthlySavings * 12;
 
   return (
     <section className="pt-8 pb-20 px-6">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Estimate Your Savings with <span className="text-green-400">AI Automation</span>
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Calculate Your <span className="text-green-400">AI Savings</span>
           </h2>
+          <p className="text-gray-300 text-lg">See how much your business can save with AI automation</p>
         </div>
 
-        <div className="calculator-display rounded-2xl p-8 glassmorphism">
-          {/* Process Type Selection */}
-          <div className="text-center mb-8">
-            <h3 className="text-white text-lg mb-4">Select Process Type</h3>
-            <div className="flex flex-wrap justify-center gap-2 mb-6">
-              {Object.values(processConfigs).map((config) => (
-                <button
-                  key={config.id}
-                  onClick={() => setSelectedProcess(config.id)}
-                  className={`px-4 py-2 rounded-lg text-sm transition-colors ${
-                    selectedProcess === config.id
-                      ? 'bg-purple-600 text-white'
-                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                  }`}
-                  data-testid={`button-process-${config.id}`}
-                >
-                  {config.name}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Input Fields Grid */}
-          <div className="grid grid-cols-2 gap-6 mb-8">
+        {/* Simple Calculator Inputs */}
+        <div className="bg-gray-900 rounded-2xl p-8 mb-12 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
             <div>
-              <label className="block text-sm text-gray-300 mb-2">Monthly Human Labor Cost ($)</label>
-              <input 
-                type="number" 
-                value={laborCost}
-                onChange={(e) => setLaborCost(Number(e.target.value))}
-                className="w-full bg-gray-800 text-white border border-gray-600 rounded-lg px-4 py-3"
-                data-testid="input-labor-cost"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm text-gray-300 mb-2">Tasks per Day</label>
-              <input 
-                type="number" 
-                value={tasksPerDay}
-                onChange={(e) => setTasksPerDay(Number(e.target.value))}
-                className="w-full bg-gray-800 text-white border border-gray-600 rounded-lg px-4 py-3"
-                data-testid="input-tasks-per-day"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm text-gray-300 mb-2">Completion Rate (%)</label>
-              <input 
-                type="number" 
-                value={completionRate}
-                onChange={(e) => setCompletionRate(Number(e.target.value))}
-                className="w-full bg-gray-800 text-white border border-gray-600 rounded-lg px-4 py-3"
-                data-testid="input-completion-rate"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm text-gray-300 mb-2">Avg. Task Duration (min)</label>
-              <input 
-                type="number" 
-                value={taskDuration}
-                onChange={(e) => setTaskDuration(Number(e.target.value))}
-                className="w-full bg-gray-800 text-white border border-gray-600 rounded-lg px-4 py-3"
-                data-testid="input-task-duration"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm text-gray-300 mb-2">Working Days per Month</label>
-              <input 
-                type="number" 
-                value={workingDays}
-                onChange={(e) => setWorkingDays(Number(e.target.value))}
-                className="w-full bg-gray-800 text-white border border-gray-600 rounded-lg px-4 py-3"
-                data-testid="input-working-days"
-              />
-            </div>
-          </div>
-
-          {/* Cost Comparison Boxes */}
-          <div className="grid md:grid-cols-2 gap-6 mb-8">
-            <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-6">
-              <div className="text-3xl font-bold text-red-400 mb-2" data-testid="text-current-cost">
-                ${results.currentCost.toLocaleString()}
+              <label className="block text-sm text-gray-300 mb-3">Your monthly spending on this process</label>
+              <div className="relative">
+                <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <input 
+                  type="number" 
+                  value={currentSpending}
+                  onChange={(e) => setCurrentSpending(Number(e.target.value))}
+                  className="w-full bg-gray-800 text-white border border-gray-600 rounded-lg pl-12 pr-4 py-4 text-lg focus:border-green-400 focus:outline-none"
+                  placeholder="5,000"
+                  data-testid="input-current-spending"
+                />
               </div>
-              <div className="text-sm text-gray-300 mb-3">per month</div>
-              <ul className="text-xs text-gray-400 space-y-1">
-                <li>• Fixed monthly cost regardless of task volume</li>
-                <li>• Limited scalability</li>
-                <li>• Variable quality and process adherence</li>
-                <li>• Human fatigue and turnover</li>
-              </ul>
             </div>
 
-            <div className="bg-green-500/20 border border-green-500/30 rounded-lg p-6">
-              <div className="text-3xl font-bold text-green-400 mb-2" data-testid="text-ai-cost">
-                ${results.aiCost}
-              </div>
-              <div className="text-sm text-gray-300 mb-3">per month</div>
-              <ul className="text-xs text-gray-400 space-y-1">
-                {currentConfig.features.map((feature, index) => (
-                  <li key={index}>• {feature}</li>
-                ))}
-              </ul>
+            <div>
+              <label className="block text-sm text-gray-300 mb-3">Company size (employees)</label>
+              <input 
+                type="number" 
+                value={companySize}
+                onChange={(e) => setCompanySize(Number(e.target.value))}
+                className="w-full bg-gray-800 text-white border border-gray-600 rounded-lg px-4 py-4 text-lg focus:border-green-400 focus:outline-none"
+                placeholder="50"
+                data-testid="input-company-size"
+              />
             </div>
           </div>
+        </div>
 
-          {/* Results Banner */}
-          <div className="bg-gradient-to-r from-purple-600 to-green-600 rounded-xl p-6 text-center">
-            <div className="text-4xl font-bold text-white mb-2" data-testid="text-monthly-savings">
-              ${results.monthlySavings.toLocaleString()} <span className="text-lg">Absolute Savings</span> | <span className="font-bold" data-testid="text-percentage-savings">{results.percentageSavings}%</span> <span className="text-lg">Cost Reduction</span>
+        {/* Service Options Cards */}
+        <div className="grid md:grid-cols-3 gap-8 mb-12">
+          {serviceOptions.map((option) => {
+            const IconComponent = option.icon;
+            const isSelected = selectedService === option.id;
+            
+            return (
+              <div 
+                key={option.id} 
+                onClick={() => setSelectedService(option.id)}
+                className={`relative cursor-pointer transition-all duration-300 ${
+                  isSelected ? 'transform scale-105' : 'hover:transform hover:scale-102'
+                }`}
+                data-testid={`card-service-option-${option.id}`}
+              >
+                <div className={`bg-gray-900 rounded-xl p-6 border-2 transition-colors ${
+                  isSelected ? 'border-green-400' : 'border-gray-700 hover:border-gray-600'
+                }`}>
+                  <div className={`w-12 h-12 ${option.color} rounded-lg flex items-center justify-center mb-4`}>
+                    <IconComponent className="text-white text-xl" />
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-white mb-2">{option.title}</h3>
+                  <p className="text-gray-400 text-sm mb-4">{option.subtitle}</p>
+                  
+                  <div className="text-2xl font-bold text-green-400 mb-4">
+                    ${option.monthlyPrice}/month
+                  </div>
+                  
+                  <ul className="space-y-2 text-sm text-gray-300">
+                    {option.benefits.map((benefit, index) => (
+                      <li key={index} className="flex items-center">
+                        <Check className="text-green-400 mr-2 w-4 h-4 flex-shrink-0" />
+                        {benefit}
+                      </li>
+                    ))}
+                  </ul>
+                  
+                  {isSelected && (
+                    <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center">
+                      <Check className="w-4 h-4 text-black" />
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Savings Results */}
+        <div className="bg-gradient-to-r from-purple-600 to-green-600 rounded-2xl p-8 text-center">
+          <div className="mb-6">
+            <div className="text-5xl font-bold text-white mb-2" data-testid="text-monthly-savings">
+              ${monthlySavings.toLocaleString()}
             </div>
-            <div className="text-sm text-white/80 mb-4">
-              Annual Savings: <span className="font-bold" data-testid="text-annual-savings">${results.annualSavings.toLocaleString()}</span>
+            <div className="text-xl text-white/90">Monthly Savings</div>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-6 text-white">
+            <div className="bg-white/10 rounded-lg p-4">
+              <div className="text-2xl font-bold" data-testid="text-percentage-savings">
+                {percentageSavings}%
+              </div>
+              <div className="text-sm opacity-80">Cost Reduction</div>
             </div>
             
-            <div className="text-xs text-white/70 space-y-1">
-              <p>Calculation assumptions: This calculator provides only a rough estimate for typical business processes. Actual savings may vary depending on your specific case.</p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-2 text-xs">
-                <p>• {tasksPerDay} tasks per day • {workingDays} working days per month • ${Math.round(laborCost/(tasksPerDay * workingDays))} / working days per month</p>
-                <p>• {completionRate}% completion rate (%) • {Math.round(tasksPerDay/24)} tasks per day completion rate (%) / working days per month</p>
-                <p>• Total AI minutes: {Math.round(tasksPerDay * taskDuration)} / working days per month</p>
+            <div className="bg-white/10 rounded-lg p-4">
+              <div className="text-2xl font-bold" data-testid="text-annual-savings">
+                ${annualSavings.toLocaleString()}
               </div>
+              <div className="text-sm opacity-80">Annual Savings</div>
             </div>
+            
+            <div className="bg-white/10 rounded-lg p-4">
+              <div className="text-2xl font-bold">
+                ${selectedOption.monthlyPrice}
+              </div>
+              <div className="text-sm opacity-80">AI Solution Cost</div>
+            </div>
+          </div>
+          
+          <div className="mt-6 text-sm text-white/70">
+            <p>Based on typical business costs. Actual savings may vary depending on your specific requirements.</p>
           </div>
         </div>
       </div>
