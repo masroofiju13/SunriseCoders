@@ -50,7 +50,7 @@ const services = [
     checkColor: "text-purple-400",
     title: "Custom AI Solutions",
     subtitle: "We deploy AI Solutions that deliver instant, reliable customer interactions 24/7.",
-    description: "Build on enterprise-grade architecture, our solutions reduce support costs by up to 70% in the first month—no downtime, no mistakes, no limits.",
+    description: "We create custom AI solutions tailored specifically to your business needs.",
     features: [
       "AI Powered Web Platforms",
       "iOS & Android App Development",
