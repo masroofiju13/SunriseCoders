@@ -1,7 +1,6 @@
 {
-  "buildCommand": "vite build",
-  "outputDirectory": "dist",
-  "framework": "vite",
+  "buildCommand": "vite build --config vite.config.vercel.ts --mode production",
+  "outputDirectory": "dist/public",
   "installCommand": "npm install",
   "rewrites": [
     {

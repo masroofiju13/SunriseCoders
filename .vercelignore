@@ -12,3 +12,6 @@ yarn-error.log*
 .pnpm-debug.log*
 server/
 attached_assets/
+drizzle.config.ts
+vite.config.ts
+replit.md

@@ -1,6 +1,6 @@
 import express from 'express';
-import { MemStorage } from '../server/storage.js';
-import { insertContactSchema, insertBookingSchema, insertCalculatorSchema } from '../shared/schema.js';
+import { z } from 'zod';
+import { randomUUID } from 'crypto';
 
 const app = express();
 
@@ -20,6 +20,88 @@ app.use((req, res, next) => {
     next();
   }
 });
+
+// Validation schemas
+const insertContactSchema = z.object({
+  name: z.string().min(1),
+  email: z.string().email(),
+  company: z.string().optional(),
+  phone: z.string().optional(),
+  message: z.string().min(1),
+});
+
+const insertBookingSchema = z.object({
+  name: z.string().min(1),
+  email: z.string().email(),
+  phone: z.string().optional(),
+  date: z.string().min(1),
+  time: z.string().min(1),
+});
+
+const insertCalculatorSchema = z.object({
+  laborCost: z.number(),
+  operationalCost: z.number(),
+  workingDays: z.number(),
+  monthlySavings: z.number(),
+  annualSavings: z.number(),
+});
+
+// In-memory storage
+class MemStorage {
+  constructor() {
+    this.contacts = new Map();
+    this.bookings = new Map();
+    this.calculators = new Map();
+  }
+
+  async createContact(insertContact) {
+    const id = randomUUID();
+    const contact = { 
+      ...insertContact, 
+      id, 
+      company: insertContact.company || null,
+      phone: insertContact.phone || null,
+      createdAt: new Date() 
+    };
+    this.contacts.set(id, contact);
+    return contact;
+  }
+
+  async getContacts() {
+    return Array.from(this.contacts.values());
+  }
+
+  async createBooking(insertBooking) {
+    const id = randomUUID();
+    const booking = { 
+      ...insertBooking, 
+      id, 
+      phone: insertBooking.phone || null,
+      createdAt: new Date() 
+    };
+    this.bookings.set(id, booking);
+    return booking;
+  }
+
+  async getBookings() {
+    return Array.from(this.bookings.values());
+  }
+
+  async createCalculatorSubmission(insertCalculator) {
+    const id = randomUUID();
+    const calculator = { 
+      ...insertCalculator, 
+      id, 
+      createdAt: new Date() 
+    };
+    this.calculators.set(id, calculator);
+    return calculator;
+  }
+
+  async getCalculatorSubmissions() {
+    return Array.from(this.calculators.values());
+  }
+}
 
 // Initialize storage
 const storage = new MemStorage();
