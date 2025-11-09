@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertContactSchema, insertBookingSchema, insertCalculatorSchema } from "@shared/schema";
+import { sendBookingConfirmationEmail } from "./email";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission
@@ -30,6 +31,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const validatedData = insertBookingSchema.parse(req.body);
       const booking = await storage.createBooking(validatedData);
+      
+      // Send confirmation email
+      try {
+        await sendBookingConfirmationEmail({
+          name: validatedData.name,
+          email: validatedData.email,
+          phone: validatedData.phone,
+          date: validatedData.date,
+          time: validatedData.time,
+          helpDescription: validatedData.helpDescription
+        });
+      } catch (emailError) {
+        console.error('Failed to send confirmation email:', emailError);
+        // Don't fail the booking if email fails
+      }
+      
       res.json({ success: true, data: booking });
     } catch (error) {
       res.status(400).json({ success: false, error: "Invalid booking data" });

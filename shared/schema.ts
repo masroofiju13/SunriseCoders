@@ -26,6 +26,7 @@ export const bookings = pgTable("bookings", {
   phone: text("phone"),
   date: text("date").notNull(),
   time: text("time").notNull(),
+  helpDescription: text("help_description"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -52,6 +53,9 @@ export const insertContactSchema = createInsertSchema(contactSubmissions).omit({
 export const insertBookingSchema = createInsertSchema(bookings).omit({
   id: true,
   createdAt: true,
+}).extend({
+  phone: z.string().min(1, "Phone number is required"),
+  helpDescription: z.string().min(1, "Please describe what you need help with"),
 });
 
 export const insertCalculatorSchema = createInsertSchema(calculatorSubmissions).omit({
