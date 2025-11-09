@@ -69,8 +69,6 @@ export default function BookingSection() {
     name: "",
     email: "",
     phone: "",
-    companyName: "",
-    companyUrl: "",
     helpDescription: ""
   });
   const [showBookingForm, setShowBookingForm] = useState(false);
@@ -109,7 +107,7 @@ export default function BookingSection() {
         title: "Booking Confirmed",
         description: "Your consultation has been scheduled successfully!",
       });
-      setFormData({ name: "", email: "", phone: "", companyName: "", companyUrl: "", helpDescription: "" });
+      setFormData({ name: "", email: "", phone: "", helpDescription: "" });
       setSelectedTime("");
       setShowBookingForm(false);
     },
@@ -123,7 +121,7 @@ export default function BookingSection() {
   });
 
   const handleConfirmBooking = () => {
-    if (!selectedDate || !selectedTime || !formData.name || !formData.email || !formData.companyName || !formData.helpDescription) {
+    if (!selectedDate || !selectedTime || !formData.name || !formData.email || !formData.phone || !formData.helpDescription) {
       toast({
         title: "Missing Information",
         description: "Please fill in all required fields and select a date and time.",
@@ -182,7 +180,7 @@ export default function BookingSection() {
                 
                 <div className="text-xs text-gray-400 mb-6">
                   If you don't find an available spot, please reach out to us at{' '}
-                  <span className="text-blue-400 underline">masroof@sunriseai.com</span>
+                  <span className="text-blue-400 underline">team@sunrisecoders.com</span>
                 </div>
                 
                 <div className="space-y-3 text-sm">
@@ -336,7 +334,7 @@ export default function BookingSection() {
                 
                 <div className="text-sm text-gray-400 mb-8">
                   If you don't find an available spot, please reach out to us at{' '}
-                  <span className="text-blue-400 underline">masroof@sunriseai.com</span>
+                  <span className="text-blue-400 underline">team@sunrisecoders.com</span>
                 </div>
                 
                 {/* Selected Date and Time */}
@@ -412,26 +410,14 @@ export default function BookingSection() {
                   </div>
 
                   <div>
-                    <label className="block text-sm text-white mb-2">Your company name *</label>
+                    <label className="block text-sm text-white mb-2">Phone number *</label>
                     <input
-                      type="text"
-                      value={formData.companyName}
-                      onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       className="w-full bg-gray-800 text-white border border-gray-600 rounded-lg px-4 py-3 focus:border-orange-400 focus:outline-none"
-                      placeholder="Company name"
-                      data-testid="input-booking-company"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm text-white mb-2">Your company url *</label>
-                    <input
-                      type="url"
-                      value={formData.companyUrl}
-                      onChange={(e) => setFormData({ ...formData, companyUrl: e.target.value })}
-                      className="w-full bg-gray-800 text-white border border-gray-600 rounded-lg px-4 py-3 focus:border-orange-400 focus:outline-none"
-                      placeholder="https://yourcompany.com"
-                      data-testid="input-booking-url"
+                      placeholder="+1 (555) 123-4567"
+                      data-testid="input-booking-phone"
                     />
                   </div>
 
